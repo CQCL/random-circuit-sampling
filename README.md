@@ -9,7 +9,7 @@ Project Organization
                               arXiv:2406.XXXXX.
     ├── circuits            <- OpenQASM files for circuits executed on H2.
     ├── results             <- Measured bit strings and ideal bit strings (if applicable) for all circuits 
-                              executed on H2.
+                              executed on H2. Endianness of bit strings matches pytket convention.
     └── system_benchmarking <- Results and analysis for component benchmarks.
 
 ------------
