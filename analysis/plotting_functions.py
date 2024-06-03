@@ -12,20 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import matplotlib.pyplot as plt
 import matplotlib as mpl
-import numpy as np
 mpl.rcParams.update({'errorbar.capsize' : 3})
-color_list = [plt.get_cmap("tab10").colors[i] for i in range(10)]
-
-def plot_transport_1qrb(seq_lengths, return_probs, return_uncerts, N):
-    fig, ax = plt.subplots()
-    fig.set_facecolor('white')
-    ax.errorbar(seq_lengths,return_probs[N], yerr = np.array(return_uncerts[N][3]).transpose(),fmt="o",color=color_list[0], markerfacecolor=[1,1,1],markeredgecolor=color_list[0],label = "Survival probability")
-    ax.grid(visible=True, axis="both", linestyle="--")
-    ax.set_xlabel("Depth, d", fontsize=12)
-    ax.set_ylabel("Average survival",  fontsize=12)
-    plt.xticks(seq_lengths)
-    plt.title('RCS Transport 1QRB N = 16')
-    plt.ylim([0.9, 1])
-    plt.show()
