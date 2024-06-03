@@ -12,21 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pathlib
-import json
 from random import choices
 import numpy as np
 from scipy.optimize import curve_fit
 from typing import Optional
-
-def load_data(file_path):
-    
-    data_dir = pathlib.Path.cwd().parent
-
-    with open(data_dir.joinpath(file_path), 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
-    return data
 
 def XEB(exp_counts, ideal_probs, N):
     shots = sum(exp_counts.values())
@@ -204,6 +193,12 @@ def logistic_fit(Nrange, mem_errs, t1qrb_uncerts):
 
 def gate_counting(N, d, eff_tq_process_fid, spam_fid, eff_depth_shift):
     return ((eff_tq_process_fid)**((N/2)*(d-eff_depth_shift))) * (spam_fid)**N 
+
+def gate_counting_uncert_Nscan(tq_fid, tq_uncert, spam_fid, spam_uncert, eff_tq_depth_shift, popt, perrs, gc, Nrange_interp):
+    return [np.sqrt((spam_uncert*N*gc[i]/spam_fid)**2 + (effective_2Q_uncert(tq_uncert, logistic_err(N,popt[0],popt[1],popt[2],perrs[0],perrs[1],perrs[2]))*(N*(12-eff_tq_depth_shift)/2)*gc[i]/effective_2Q(tq_fid, mem_err(N,popt)))**2) for i,N in enumerate(Nrange_interp)]
+
+def gate_counting_uncert_dscan(tq_fid, tq_uncert, spam_fid, spam_uncert, eff_tq_depth_shift, mem_err, mem_err_uncert, N, gc, drange_interp):
+    return [np.sqrt((spam_uncert*N*gc[i]/spam_fid)**2 + (effective_2Q_uncert(tq_uncert, mem_err_uncert)*(N*(d-eff_tq_depth_shift)/2)*gc[i]/effective_2Q(tq_fid, mem_err))**2) for i,d in enumerate(drange_interp)]
 
 def mem_err(N, popt):
     return logistic(N,popt[0],popt[1],popt[2])
