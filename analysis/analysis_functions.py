@@ -184,7 +184,7 @@ def logistic(x,A,x0,k):
     return A / (1 + np.exp(-k*(x-x0)))
 
 def logistic_err(x,A,x0,k,Aerr,x0err,kerr):
-    return 2*np.sqrt((Aerr*logistic(x,A,x0,k)/A)**2+(kerr*A*np.exp(-k*(x-x0))*(x-x0)/(1+np.exp(-k*(x-x0)))**2)**2+(x0err*A*k*np.exp(-k*(x-x0))/(1+np.exp(-k*(x-x0)))**2)**2)
+    return np.sqrt((Aerr*logistic(x,A,x0,k)/A)**2+(kerr*A*np.exp(-k*(x-x0))*(x-x0)/(1+np.exp(-k*(x-x0)))**2)**2+(x0err*A*k*np.exp(-k*(x-x0))/(1+np.exp(-k*(x-x0)))**2)**2)
 
 def logistic_fit(Nrange, mem_errs, t1qrb_uncerts):
     popt, pcov =curve_fit(logistic, Nrange, mem_errs, sigma = t1qrb_uncerts,p0=[.0005,18,0.1])
