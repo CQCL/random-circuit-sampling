@@ -6,7 +6,7 @@ Project Organization
     ├── amplitudes          <- Ideal amplitudes of the measured bit strings in /results, computed by 
                             statevector simulation.
     ├── analysis            <- Contains functions required to parse results and produce plots contained in 
-                              arXiv:2406.XXXXX.
+                              arXiv:2406.02501.
     ├── circuits            <- OpenQASM files for circuits executed on H2. Circuits at N=56 and various depths are contained in
                                /N56_depths. Circuits at depth-12 for various N are contained in /N_scan_depth12. Circuits at
                                N=40 and various depths are contained in /N40_verification. Folders are labeled according to
